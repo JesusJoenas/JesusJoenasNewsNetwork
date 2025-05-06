@@ -1,0 +1,28 @@
+{% extends 'png_app/base.html' %}
+{% block title %}Login | Jesus Joenas News Network{% endblock %}
+{% block content %}
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+    <div class="card p-4 bg-dark text-light" style="width: 100%; max-width: 400px;">
+        <h2 class="text-center mb-3">Welcome Back to JJNN!</h2>
+        <p class="text-center text-muted mb-4">Sign in below to catch up on your curated headlines.</p>
+
+        <form method="POST">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="username" class="form-label">Username</label>
+                <input type="text" name="username" class="form-control" required autofocus>
+            </div>
+            <div class="mb-4">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" name="password" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Login</button>
+        </form>
+
+        <div class="text-center mt-3">
+            <a href="{% url 'register' %}" class="text-decoration-none text-primary">Create an Account</a> |
+            <a href="{% url 'password_reset' %}" class="text-decoration-none text-primary">Forgot Password?</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

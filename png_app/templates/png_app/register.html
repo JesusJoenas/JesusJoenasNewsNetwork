@@ -1,0 +1,41 @@
+{% extends 'png_app/base.html' %}
+{% block title %}Register | Jesus Joenas News Network{% endblock %}
+
+{% block content %}
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+    <div class="card p-4 bg-dark text-light" style="width: 100%; max-width: 450px;">
+        <h2 class="text-center mb-3">Create Your Account</h2>
+        <p class="text-center text-muted mb-4">Join JJNN for your very own tailored news experience!</p>
+
+        {% if messages %}
+        <div class="alert alert-danger" role="alert">
+            {% for message in messages %}
+                {{ message }}
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <form method="POST" class="d-grid gap-3">
+            {% csrf_token %}
+            
+            {% for field in form %}
+                <div class="mb-3">
+                    {{ field.label_tag }}
+                    {{ field }}
+                    {% if field.errors %}
+                        <div class="text-danger small">
+                            {{ field.errors|striptags }}
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+
+            <button type="submit" class="btn btn-primary w-100">Register</button>
+        </form>
+
+        <div class="text-center mt-3">
+            <a href="{% url 'login' %}" class="text-decoration-none text-primary">Already have an account? Login</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

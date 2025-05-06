@@ -1,0 +1,42 @@
+{% extends 'png_app/base.html' %}
+{% block title %}Dashboard | JJNN{% endblock %}
+
+{% block content %}
+<div class="container text-center mt-5">
+    <h1 class="mb-3" style="font-weight: bold; font-size: 3rem; color: #007bff;">
+        Welcome to Your Dashboard, {{ first_name }}!
+    </h1>
+    <p class="lead text-light">Your World. Your News. Your Timeline.</p>
+
+    <!-- Search bar -->
+    <form method="GET" action="{% url 'dashboard' %}">
+        <div class="d-flex justify-content-center mt-4 mb-5">
+            <input type="text" name="query" class="cybertruck-search" placeholder="Search more news...">
+            <button type="submit" class="btn btn-primary ms-2">Search</button>
+        </div>
+    </form>
+
+    {% if articles %}
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            {% for article in articles %}
+            <div class="col">
+                <div class="card h-100 bg-dark text-light">
+                    {% if article.image_url %}
+                        <img src="{{ article.image_url }}" class="card-img-top" alt="{{ article.title }}">
+                    {% endif %}
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">{{ article.title }}</h5>
+                        <p class="card-text">
+                            {{ article.content|striptags|truncatechars:150 }}
+                        </p>
+                        <a href="{{ article.url }}" target="_blank" class="btn btn-primary mt-auto">Read More</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="text-light mt-5">No articles matched your preferences. Try searching above to explore more!</p>
+    {% endif %}
+</div>
+{% endblock %}
